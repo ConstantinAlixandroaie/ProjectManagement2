@@ -8,6 +8,10 @@ using ProjectManagementAPI.Controllers;
 using ProjectManagementAPI.Data;
 using ProjectManagementAPI.Model;
 
+//Clients are the ones who order projects. Their importance in this project is marginal, only to provide an identifier as for who
+// the project is, and all the subsequent items. At the moment I only have to implement CRUD. There will be a requirement later for reporting
+//pages where I will create virtual methods in the IClientsController to fullfil those functions.
+
 namespace ProjectManagementAPI.API.Controllers
 {
     public interface IClientController : ISiteController<Client>
@@ -61,7 +65,7 @@ namespace ProjectManagementAPI.API.Controllers
 
         public override async Task<bool> Update(int id, Client newData)
         {
-            var item = await GetById(id);
+            var item = await _ctx.Clients.FirstOrDefaultAsync(x => x.Id == id);
             if (item == null)
                 return false;
 

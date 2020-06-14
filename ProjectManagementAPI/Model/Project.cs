@@ -9,7 +9,7 @@ namespace ProjectManagementAPI.Model
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int Number { get; set; }
+        public int? Number { get; set; }
         public int ClientId { get; set; }
         public string Owner { get; set; }
         public DateTime StartDate { get; set; }
