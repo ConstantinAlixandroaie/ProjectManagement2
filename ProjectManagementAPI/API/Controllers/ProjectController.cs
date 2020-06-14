@@ -15,6 +15,46 @@ namespace ProjectManagementAPI.API.Controllers
         {
 
         }
+        public override async Task<Project> Add(Project item)
+        {
+            if (item == null)
+            {
+                return null;
+            }
+            if (item.Name == null)
+            {
+                return null;
+            }
+            if (item.Number == null)
+            {
+                return null;
+            }
+            if (item.Owner == null)
+            {
+                return null;
+            }
+            if (item.StartDate == null)
+            {
+                return null;
+            }
+            if (item.EndDate == null)
+            {
+                return null;
+            }
+            var project = new Project()
+            {
+                Name = item.Name,
+                Number = item.Number,
+                Owner=item.Owner,
+                StartDate=item.StartDate,
+                EndDate=item.EndDate,
+                ClientId=item.ClientId,
+            };
+            _ctx.Projects.Add(project);
+            await _ctx.SaveChangesAsync();
+            return project;
+
+        }
         public override async Task<IEnumerable<Project>> Get(bool asNoTracking = false)
         {
             var sourceCollection = _ctx.Projects.AsQueryable();
@@ -54,7 +94,7 @@ namespace ProjectManagementAPI.API.Controllers
             {
                 item.Name = newData.Name;
             }
-            if (newData.Number != null) 
+            if (newData.Number != null)
             {
                 item.Number = newData.Number;
             }
@@ -70,7 +110,7 @@ namespace ProjectManagementAPI.API.Controllers
             {
                 item.EndDate = newData.EndDate;
             }
-            if(newData.Client!=null)
+            if (newData.Client != null)
             {
                 item.Client = newData.Client;
             }
