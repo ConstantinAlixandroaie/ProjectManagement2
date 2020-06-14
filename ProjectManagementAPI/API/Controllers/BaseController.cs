@@ -37,11 +37,11 @@ namespace ProjectManagementAPI.Controllers
 
         public virtual async Task<bool> Update(int id, T newData)
         {
-            var itm = await GetById(id);
-            if (itm == null)
+            var item = await GetById(id);
+            if (item == null)
                 return false;
 
-            itm.UpdateFrom(newData);
+            item.UpdateFrom(newData);
             await _ctx.SaveChangesAsync();
             return true;
         }

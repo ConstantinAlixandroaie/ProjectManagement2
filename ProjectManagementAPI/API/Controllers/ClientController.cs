@@ -3,48 +3,88 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProjectManagementAPI.Controllers;
 using ProjectManagementAPI.Data;
 using ProjectManagementAPI.Model;
 
 namespace ProjectManagementAPI.API.Controllers
 {
-    public interface IClientController:ISiteController<Client>
+    public interface IClientController : ISiteController<Client>
     {
 
     }
     public class ClientController : BaseController<Client>, IClientController
     {
-        public ClientController(ProjectManagementDbContext ctx):base(ctx)
+        public ClientController(ProjectManagementDbContext ctx) : base(ctx)
         {
-                
+
         }
 
-        public override Task<Client> Add(Client item)
+        public override async Task<Client> Add(Client item)
         {
-            return base.Add(item);
+            if (item == null)
+                return null;
+            if (item.Name == null)
+                return null;
+            if (item.ImageUrl == null)
+                return null;
+            var client = new Client()
+            {
+                Name = item.Name,
+                ImageUrl = item.ImageUrl,
+            };
+            _ctx.Clients.Add(client);
+            await _ctx.SaveChangesAsync();
+            return client;
         }
-        public override Task<IEnumerable<Client>> Get(bool asNoTracking = false)
+        public override async Task<IEnumerable<Client>> Get(bool asNoTracking = false)
         {
-            throw new NotImplementedException();
+            var sourceCollection = _ctx.Clients.AsQueryable();
+            if (asNoTracking)
+                sourceCollection = sourceCollection.AsNoTracking();
+            return await _ctx.Clients.ToListAsync();
         }
 
-        public override Task<Client> GetById(int id, bool asNoTracking = false)
+        public override async Task<Client> GetById(int id, bool asNoTracking = false)
         {
-            throw new NotImplementedException();
+            var sourceCollection = _ctx.Clients.AsQueryable();
+            if (asNoTracking)
+                sourceCollection = sourceCollection.AsNoTracking();
+
+            var item = await _ctx.Clients.FirstOrDefaultAsync(x => x.Id == id);
+            if (item == null)
+                return null;
+
+            return item;
         }
 
-        public override Task<bool> Update(int id, Client newData)
+        public override async Task<bool> Update(int id, Client newData)
         {
-            return base.Update(id, newData);
+            var item = await GetById(id);
+            if (item == null)
+                return false;
+
+            if (newData.ImageUrl != null)
+            {
+                item.ImageUrl = newData.ImageUrl;
+            }
+            if (newData.Name != null)
+            {
+                item.Name = newData.Name;
+            }
+            await _ctx.SaveChangesAsync();
+            return true;
         }
-        public override Task<bool> Remove(Client item)
+        public override async Task<Client> RemoveById(int id)
         {
-            return base.Remove(item);
-        }
-        public override Task<Client> RemoveById(int id)
-        {
-            throw new NotImplementedException();
+            var item = await _ctx.Clients.FirstOrDefaultAsync(x => x.Id == id);
+            if (item == null)
+                return null;
+
+            _ctx.Clients.Remove(item);
+            await _ctx.SaveChangesAsync();
+            return item;
         }
     }
 }
