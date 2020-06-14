@@ -70,6 +70,10 @@ namespace ProjectManagementAPI.API.Controllers
             {
                 item.EndDate = newData.EndDate;
             }
+            if(newData.Client!=null)
+            {
+                item.Client = newData.Client;
+            }
             await _ctx.SaveChangesAsync();
             return true;
         }
