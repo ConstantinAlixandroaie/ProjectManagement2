@@ -9,9 +9,13 @@ using System.Threading.Tasks;
 
 namespace ProjectManagementAPI.API.Controllers
 {
-    public class ProjectController : BaseController<Project>
+    public interface IProjectsRepository:IRepository<Project>
     {
-        public ProjectController(ProjectManagementDbContext ctx) : base(ctx)
+
+    }
+    public class ProjectsRepository : Repository<Project>,IProjectsRepository
+    {
+        public ProjectsRepository(ProjectManagementDbContext ctx) : base(ctx)
         {
 
         }

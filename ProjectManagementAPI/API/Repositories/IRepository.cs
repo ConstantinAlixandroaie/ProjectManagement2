@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectManagementAPI.Controllers
 {
-    public interface ISiteController<T> where T:IDbObject
+    public interface IRepository<T> where T:IDbObject
     {
         Task<IEnumerable<T>> Get(bool asNoTracking = false);
         Task<T> GetById(int id, bool asNoTracking = false);
@@ -15,6 +15,7 @@ namespace ProjectManagementAPI.Controllers
         Task<bool> Remove(T item);
         Task<T> RemoveById(int id);
         Task<bool> Update(int id, T newData);
+
 
     }
 }

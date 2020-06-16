@@ -14,13 +14,13 @@ using ProjectManagementAPI.Model;
 
 namespace ProjectManagementAPI.API.Controllers
 {
-    public interface IClientController : ISiteController<Client>
+    public interface IClientsRepository : IRepository<Client>
     {
 
     }
-    public class ClientController : BaseController<Client>, IClientController
+    public class ClientsRepository : Repository<Client>, IClientsRepository
     {
-        public ClientController(ProjectManagementDbContext ctx) : base(ctx)
+        public ClientsRepository(ProjectManagementDbContext ctx) : base(ctx)
         {
 
         }

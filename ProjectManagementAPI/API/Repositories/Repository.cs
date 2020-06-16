@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace ProjectManagementAPI.Controllers
 {
-    public abstract class BaseController<T> : ISiteController<T> where T : class, IDbObject
+    public abstract class Repository<T> : IRepository<T> where T : class, IDbObject
     {
         protected ProjectManagementDbContext _ctx;
-        public BaseController(ProjectManagementDbContext ctx)
+        public Repository(ProjectManagementDbContext ctx)
         {
             _ctx = ctx;
         }

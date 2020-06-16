@@ -8,5 +8,9 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="API\Controllers\" />
+  </ItemGroup>
+
 
 </Project>
