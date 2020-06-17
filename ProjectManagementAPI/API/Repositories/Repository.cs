@@ -1,11 +1,10 @@
-﻿using ProjectManagementAPI.Data;
+﻿using ProjectManagementAPI.API.Repositories;
+using ProjectManagementAPI.Data;
 using ProjectManagementAPI.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProjectManagementAPI.Controllers
+namespace ProjectManagementAPI.API.Repositories
 {
     public abstract class Repository<T> : IRepository<T> where T : class, IDbObject
     {

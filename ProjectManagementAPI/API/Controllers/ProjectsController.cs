@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ProjectManagementAPI.Controllers;
+using ProjectManagementAPI.API.Repositories;
 using ProjectManagementAPI.Model;
 using System;
 using System.Collections.Generic;

@@ -1,10 +1,8 @@
 ﻿using ProjectManagementAPI.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProjectManagementAPI.Controllers
+namespace ProjectManagementAPI.API.Repositories
 {
     public interface IRepository<T> where T:IDbObject
     {

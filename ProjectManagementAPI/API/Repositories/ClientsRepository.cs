@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ProjectManagementAPI.Controllers;
+using ProjectManagementAPI.API.Repositories;
 using ProjectManagementAPI.Data;
 using ProjectManagementAPI.Model;
 
@@ -12,7 +9,7 @@ using ProjectManagementAPI.Model;
 // the project is, and all the subsequent items. At the moment I only have to implement CRUD. There will be a requirement later for reporting
 //pages where I will create virtual methods in the IClientsController to fullfil those functions.
 
-namespace ProjectManagementAPI.API.Controllers
+namespace ProjectManagementAPI.API.Repositories
 {
     public interface IClientsRepository : IRepository<Client>
     {

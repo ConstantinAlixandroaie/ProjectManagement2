@@ -14,8 +14,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using ProjectManagementAPI.API.Controllers;
 using ProjectManagementAPI.Data;
-using ProjectManagementAPI.Controllers;
+using ProjectManagementAPI.API.Repositories;
 using ProjectManagementAPI.Model;
+using ProjectManagementAPI.API.Repositories;
 
 namespace ProjectManagementAPI
 {
