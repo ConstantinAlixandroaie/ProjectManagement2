@@ -4,47 +4,120 @@ let clients = [];
 function getItems() {
     fetch(uri)
         .then(response => response.json())
-        .then(console.log(response))
         .then(data => _displayItems(data))
         .catch(error => console.error('Unable to get items.', error));
 }
-//function _displayItems(data) {
-//    const tBody = document.getElementById('clients');
-//    tBody.innerHTML = '';
+function addItem() {
+    const addNameTextbox = document.getElementById('add-name');
 
-//    _displayCount(data.length);
+    const item = {
+        isComplete: false,
+        name: addNameTextbox.value.trim()
+    };
 
-//    const button = document.createElement('button');
+    fetch(uri, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(item)
+    })
+        .then(response => response.json())
+        .then(() => {
+            getItems();
+            addNameTextbox.value = '';
+        })
+        .catch(error => console.error('Unable to add item.', error));
+}
 
-//    data.forEach(item => {
-//        let isCompleteCheckbox = document.createElement('input');
-//        isCompleteCheckbox.type = 'checkbox';
-//        isCompleteCheckbox.disabled = true;
-//        isCompleteCheckbox.checked = item.isComplete;
+function deleteItem(id) {
+    fetch(`${uri}/${id}`, {
+        method: 'DELETE'
+    })
+        .then(() => getItems())
+        .catch(error => console.error('Unable to delete item.', error));
+}
 
-//        let editButton = button.cloneNode(false);
-//        editButton.innerText = 'Edit';
-//        editButton.setAttribute('onclick', `displayEditForm(${item.id})`);
+function displayEditForm(id) {
+    const item = clients.find(item => item.id === id);
 
-//        let deleteButton = button.cloneNode(false);
-//        deleteButton.innerText = 'Delete';
-//        deleteButton.setAttribute('onclick', `deleteItem(${item.id})`);
+    document.getElementById('edit-name').value = item.name;
+    document.getElementById('edit-id').value = item.id;
+    document.getElementById('edit-isComplete').checked = item.isComplete;
+    document.getElementById('editForm').style.display = 'block';
+}
 
-//        let tr = tBody.insertRow();
+function updateItem() {
+    const itemId = document.getElementById('edit-id').value;
+    const item = {
+        id: parseInt(itemId, 10),
+        isComplete: document.getElementById('edit-isComplete').checked,
+        name: document.getElementById('edit-name').value.trim()
+    };
 
-//        let td1 = tr.insertCell(0);
-//        td1.appendChild(isCompleteCheckbox);
+    fetch(`${uri}/${itemId}`, {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(item)
+    })
+        .then(() => getItems())
+        .catch(error => console.error('Unable to update item.', error));
 
-//        let td2 = tr.insertCell(1);
-//        let textNode = document.createTextNode(item.name);
-//        td2.appendChild(textNode);
+    closeInput();
 
-//        let td3 = tr.insertCell(2);
-//        td3.appendChild(editButton);
+    return false;
+}
 
-//        let td4 = tr.insertCell(3);
-//        td4.appendChild(deleteButton);
-//    });
+function closeInput() {
+    document.getElementById('editForm').style.display = 'none';
+}
 
-//    clients = data;
-//}
+function _displayCount(itemCount) {
+    const name = (itemCount === 1) ? 'to-do' : 'to-dos';
+
+    document.getElementById('counter').innerText = `${itemCount} ${name}`;
+}
+function _displayItems(data) {
+    const tBody = document.getElementById('clients');
+    tBody.innerHTML = '';
+
+    _displayCount(data.length);
+
+    const button = document.createElement('button');
+
+    data.forEach(item => {
+        let isCompleteCheckbox = document.createElement('input');
+        isCompleteCheckbox.type = 'checkbox';
+        isCompleteCheckbox.disabled = true;
+        isCompleteCheckbox.checked = item.isComplete;
+
+        let editButton = button.cloneNode(false);
+        editButton.innerText = 'Edit';
+        editButton.setAttribute('onclick', `displayEditForm(${item.id})`);
+
+        let deleteButton = button.cloneNode(false);
+        deleteButton.innerText = 'Delete';
+        deleteButton.setAttribute('onclick', `deleteItem(${item.id})`);
+
+        let tr = tBody.insertRow();
+
+        let td1 = tr.insertCell(0);
+        td1.appendChild(isCompleteCheckbox);
+
+        let td2 = tr.insertCell(1);
+        let textNode = document.createTextNode(item.name);
+        td2.appendChild(textNode);
+
+        let td3 = tr.insertCell(2);
+        td3.appendChild(editButton);
+
+        let td4 = tr.insertCell(3);
+        td4.appendChild(deleteButton);
+    });
+
+    clients = data;
+}

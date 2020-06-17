@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using ProjectManagementAPI.Controllers;
 using ProjectManagementAPI.Model;
 using System;
@@ -12,9 +13,11 @@ namespace ProjectManagementAPI.API.Controllers
     [Route("api/[controller]")]
     public class ClientsController : ControllerBase
     {
+        private readonly ILogger<ClientsController> _logger; 
         private readonly IRepository<Client> _clientsRepo;
-        public ClientsController(IRepository<Client> clientsRepo)
+        public ClientsController(ILogger<ClientsController> logger,IRepository<Client> clientsRepo)
         {
+            _logger = logger;
             _clientsRepo = clientsRepo;
         }
         [HttpGet]

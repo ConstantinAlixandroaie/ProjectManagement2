@@ -14,6 +14,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using ProjectManagementAPI.API.Controllers;
 using ProjectManagementAPI.Data;
+using ProjectManagementAPI.Controllers;
+using ProjectManagementAPI.Model;
 
 namespace ProjectManagementAPI
 {
@@ -30,11 +32,12 @@ namespace ProjectManagementAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            //services.AddMvc();
-                //.AddControllersAsServices();
-            //by me
-            services.AddTransient<IClientsRepository, ClientsRepository>();
-            services.AddTransient<IProjectsRepository, ProjectsRepository>();
+            services.AddMvc();
+            //I need to figure out the difference between these two lines.
+            services.AddTransient<IRepository<Client>, ClientsRepository>(); 
+            services.AddTransient<IProjectsRepository, ProjectsRepository>(); 
+
+
             //services.AddTransient<IChecklistRepository,ChecklistRepository>();
             //services.AddTransient<IPlansRepository, PlansRepository>();
             //services.AddTransient<IChecklistItemsRepository,CheckListItemsRepository>();
