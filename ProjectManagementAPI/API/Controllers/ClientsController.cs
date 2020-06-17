@@ -13,11 +13,9 @@ namespace ProjectManagementAPI.API.Controllers
     [Route("api/[controller]")]
     public class ClientsController : ControllerBase
     {
-        private readonly ILogger<ClientsController> _logger; 
         private readonly IRepository<Client> _clientsRepo;
-        public ClientsController(ILogger<ClientsController> logger,IRepository<Client> clientsRepo)
+        public ClientsController(IRepository<Client> clientsRepo)
         {
-            _logger = logger;
             _clientsRepo = clientsRepo;
         }
         [HttpGet]
@@ -44,7 +42,12 @@ namespace ProjectManagementAPI.API.Controllers
             var rv = await _clientsRepo.Add(client);
             return Ok(rv);
         }
-
+        [HttpPost]
+        public async Task<IActionResult> Update(int id,Client client)
+        {
+            var rv = await _clientsRepo.Update(id, client);
+            return Ok(rv);
+        }
 
     }
 }
