@@ -16,7 +16,6 @@ using ProjectManagementAPI.API.Controllers;
 using ProjectManagementAPI.Data;
 using ProjectManagementAPI.API.Repositories;
 using ProjectManagementAPI.Model;
-using ProjectManagementAPI.API.Repositories;
 
 namespace ProjectManagementAPI
 {
@@ -36,7 +35,7 @@ namespace ProjectManagementAPI
             services.AddMvc();
             //I need to figure out the difference between these two lines.
             services.AddTransient<IRepository<Client>, ClientsRepository>(); 
-            services.AddTransient<IProjectsRepository, ProjectsRepository>(); 
+            //services.AddTransient<IProjectsRepository, ProjectsRepository>(); 
 
 
             //services.AddTransient<IChecklistRepository,ChecklistRepository>();
