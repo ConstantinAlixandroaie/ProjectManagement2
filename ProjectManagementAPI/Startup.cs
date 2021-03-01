@@ -34,9 +34,12 @@ namespace ProjectManagementAPI
             services.AddControllers();
             services.AddMvc();
             //I need to figure out the difference between these two lines.
-            services.AddTransient<IRepository<Client>, ClientsRepository>(); 
+            services.AddTransient<IRepository<Client>, ClientRepository>();
             //services.AddTransient<IProjectsRepository, ProjectsRepository>(); 
-
+            services.AddTransient<IRepository<Plan>, PlanRepository>();
+            services.AddTransient<IRepository<Project>, ProjectRepository>();
+            services.AddTransient<IRepository<CheckList>, CheckListRepository>();
+            services.AddTransient<IRepository<CheckListItem>, CheckListItemRepository>();
 
             //services.AddTransient<IChecklistRepository,ChecklistRepository>();
             //services.AddTransient<IPlansRepository, PlansRepository>();

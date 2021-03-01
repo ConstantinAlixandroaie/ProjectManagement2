@@ -11,9 +11,9 @@ namespace ProjectManagementAPI.API.Repositories
     {
 
     }
-    public class ProjectsRepository : Repository<Project>,IProjectsRepository
+    public class ProjectRepository : Repository<Project>,IProjectsRepository
     {
-        public ProjectsRepository(ProjectManagementDbContext ctx) : base(ctx)
+        public ProjectRepository(ProjectManagementDbContext ctx) : base(ctx)
         {
 
         }

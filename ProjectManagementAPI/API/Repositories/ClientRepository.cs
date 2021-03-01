@@ -15,9 +15,9 @@ namespace ProjectManagementAPI.API.Repositories
     {
 
     }
-    public class ClientsRepository : Repository<Client>, IClientsRepository
+    public class ClientRepository : Repository<Client>, IClientsRepository
     {
-        public ClientsRepository(ProjectManagementDbContext ctx) : base(ctx)
+        public ClientRepository(ProjectManagementDbContext ctx) : base(ctx)
         {
 
         }
